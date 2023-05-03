@@ -1,15 +1,15 @@
 import pandas as pd
 import streamlit as slt
 
-bbc_text = pd.read_csv('bbc-text.txt')
-bbc_text=bbc_text.rename(columns = {'text': 'News_Headline'}, inplace = False)
-bbc_text.head()
-bbc_text.category = bbc_text.category.map({'tech':0, 'business':1, 'sport':2, 'entertainment':3, 'politics':4})
-bbc_text.category.unique()
+text = pd.read_csv('bbc-text.txt')
+text=text.rename(columns = {'text': 'News_Headline'}, inplace = False)
+text.head()
+text.category = text.category.map({'tech':0, 'business':1, 'sport':2, 'entertainment':3, 'politics':4})
+text.category.unique()
 
 from sklearn.model_selection import train_test_split
-X = bbc_text.News_Headline
-y = bbc_text.category
+X = text.News_Headline
+y = text.category
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size = 0.6, random_state = 1)
 
@@ -32,7 +32,7 @@ saved_model = pickle.dumps(naivebayes)
 s = pickle.loads(saved_model)
 
 
-slt.header("News Categorizer")
+slt.header("Text Categorizer")
 input=slt.text_input("Write your text")
 
 inp=vector.transform([input]).toarray()
