@@ -10,16 +10,16 @@ bbc_text.category.unique()
 from sklearn.model_selection import train_test_split
 X = bbc_text.News_Headline
 y = bbc_text.category
-#split data
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size = 0.6, random_state = 1)
 
 from sklearn.feature_extraction.text import CountVectorizer
 vector = CountVectorizer(stop_words = 'english',lowercase=False)
-# fit the vectorizer on the training data
+
 vector.fit(X_train)
 X_transformed = vector.transform(X_train)
 X_transformed.toarray()
-# for test data
+
 X_test_transformed = vector.transform(X_test)
 
 from sklearn.naive_bayes import MultinomialNB
@@ -33,11 +33,11 @@ s = pickle.loads(saved_model)
 
 
 slt.header("News Categorizer")
-input=slt.text_input("Enter the text")
+input=slt.text_input("Write your text")
 
 inp=vector.transform([input]).toarray()
     
 
-if slt.button("Predict"):
+if slt.button("Discover"):
     pre=(str(list(s.predict(inp))[0]).replace('0', 'TECH').replace('1', 'BUSINESS').replace('2', 'SPORTS').replace('3','ENTERTAINMENT').replace('4','POLITICS'))
     slt.write(pre)
